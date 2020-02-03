@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Claudio Vertemara
+//CST 326 Pong (Project 1)
+//Feb 2, 2020
+
 public class GameManager : MonoBehaviour
 {
     public GameObject scoreManager;

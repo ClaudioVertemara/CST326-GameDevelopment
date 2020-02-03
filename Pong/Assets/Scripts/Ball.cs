@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Claudio Vertemara
+//CST 326 Pong (Project 1)
+//Feb 2, 2020
+
 public class Ball : MonoBehaviour
 {
     public float startballSpeed = 5.0f;
     public float ballSpeed = 5f;
 
     Rigidbody rb;
+    MeshRenderer mr;
 
     // Start is called before the first frame update
     void Start() {
         rb = gameObject.GetComponent<Rigidbody>();
+        mr = gameObject.GetComponent<MeshRenderer>();
 
         SpawnBall(true, -1);
     }
@@ -47,19 +53,27 @@ public class Ball : MonoBehaviour
         transform.localRotation = Quaternion.identity;
 
         ballSpeed = 5;
+
+        mr.material.color = Color.white;
     }
 
     // Update is called once per frame
     void Update() {
-
+        //gameObject.transform.forward = rb.velocity;
     }
 
     private void OnCollisionEnter(Collision collision) {
 
-        if (collision.gameObject.tag == "Paddle") {
+        if (collision.gameObject.tag == "LPaddle") {
             ballSpeed += 1;
+            mr.material.color = Color.red;
         }
-        
+
+        if (collision.gameObject.tag == "RPaddle") {
+            ballSpeed += 1;
+            mr.material.color = Color.blue;
+        }
+
         if (collision.gameObject.name == "TopPL") {
             rb.AddForce(new Vector3(1, 0, 1) * ballSpeed);
         } else if (collision.gameObject.name == "MidPL") {
