@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
     ScoreManager smScript;
     Ball bScript;
 
+    public GameObject bigBall;
+    public GameObject redirectBall;
+
+    bool waitForRestart = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,15 +30,61 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (ball.transform.localPosition.x >= 15) {
-            smScript.p1Scored();
+            if (smScript.p1Scored() == 1) {
+                StartCoroutine(holdBeforeRestart());
+            }
 
             bScript.resetBall();
-            bScript.SpawnBall(false, 2);
+
+            if (waitForRestart == false) {
+                bScript.SpawnBall(false, 2);
+                SpawnModifiers();
+            }
         } else if (ball.transform.localPosition.x <= -15) {
-            smScript.p2Scored();
+            if (smScript.p2Scored() == 1) {
+                StartCoroutine(holdBeforeRestart());
+            }
 
             bScript.resetBall();
-            bScript.SpawnBall(false, 1);
+
+            if (waitForRestart == false) {
+                bScript.SpawnBall(false, 1);
+                SpawnModifiers();
+            }
         }
+    }
+
+    public void SpawnModifiers() {
+        bigBall.SetActive(true);
+        redirectBall.SetActive(true);
+
+        float bigBallX = Random.Range(-5f, 5f);
+        float bigBallZ = Random.Range(-5f, 5f);
+
+        float redirectBallX = Random.Range(-5f, 5f);
+        float redirectBallZ = Random.Range(-5f, 5f);
+
+        bigBall.transform.localPosition = new Vector3(bigBallX, 0.5f, bigBallZ);
+        redirectBall.transform.localPosition = new Vector3(redirectBallX, 0.5f, redirectBallZ);
+
+        // Respawn modifiers if they are too close to each other
+        if (bigBallX == redirectBallX || Mathf.Abs(bigBallX - redirectBallX) <= 1f) {
+            SpawnModifiers();
+        } else if (bigBallZ == redirectBallZ || Mathf.Abs(bigBallZ - redirectBallZ) <= 1f) {
+            SpawnModifiers();
+        }
+    }
+
+    IEnumerator holdBeforeRestart() {
+        waitForRestart = true;
+
+        yield return new WaitForSeconds(5);
+
+        smScript.restartGameText();
+
+        bScript.SpawnBall(true, -1);
+        SpawnModifiers();
+
+        waitForRestart = false;
     }
 }
