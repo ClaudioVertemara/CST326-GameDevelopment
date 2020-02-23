@@ -5,19 +5,20 @@ using UnityEngine;
 
 //Claudio Vertemara
 //CST 326 Mario (Project 2)
-//Feb 16, 2020
+//Feb 23, 2020
 
 public class LevelParserStarter : MonoBehaviour
 {
     public string filename;
 
     public GameObject Rock;
-
     public GameObject Brick;
-
     public GameObject QuestionBox;
-
     public GameObject Stone;
+
+    public GameObject Lava;
+    public GameObject Goal;
+    public GameObject Coin;
 
     public Transform parentTransform;
     // Start is called before the first frame update
@@ -63,6 +64,9 @@ public class LevelParserStarter : MonoBehaviour
             case '?': ToSpawn = QuestionBox; break;
             case 'x': ToSpawn = Rock; break;
             case 's': ToSpawn = Stone; break;
+            case 'l': ToSpawn = Lava; break;
+            case 'g': ToSpawn = Goal; break;
+            case 'c': ToSpawn = Coin; break;
             //default: Debug.Log("Default Entered"); break;
             default: return;
                 //ToSpawn = //Brick;       break;
