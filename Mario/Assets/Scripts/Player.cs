@@ -33,10 +33,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "Lava") {
-            Destroy(gameObject);
             Timer.GetComponent<Timer>().GameOver();
-
-            gameOverText.text = "Game Over!";
         }
 
         if (collision.gameObject.tag == "Goal") {
