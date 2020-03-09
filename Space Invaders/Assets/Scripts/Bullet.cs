@@ -12,10 +12,10 @@ public class Bullet : MonoBehaviour
 
     Rigidbody2D rb2d;
 
-    public GameObject gm;
+    GameObject gm;
 
     public void Start() {
-        gm = GameObject.Find("Manager");
+        gm = GameObject.Find("GameManager");
     }
 
     public void ShootBullet(int direction) {
@@ -33,8 +33,11 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision) {
 
         if (collision.gameObject.name == "Player") {
-            collision.gameObject.SetActive(false);
-            gm.GetComponent<GameManager>().ResetGame();
+            gm.GetComponent<GameManager>().EndGame();
+        } else if (collision.gameObject.name.Contains("Enemy")) {
+            if (collision.gameObject != null) {
+                collision.gameObject.GetComponent<Enemy>().DestroyEnemy();
+            }
         } else {
             Destroy(collision.gameObject);
         }

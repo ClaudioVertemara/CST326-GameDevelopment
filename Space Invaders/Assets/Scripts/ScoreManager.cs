@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
     int score;
-    int hiScore;
+    public static int hiScore;
 
     public Text scoreText;
     public Text hiScoreText;
@@ -19,7 +19,13 @@ public class ScoreManager : MonoBehaviour
     void Start()
     {
         score = 0;
-        hiScore = 0;
+
+        if (GameManager.firstGame == true) {
+            hiScore = 0;
+            GameManager.firstGame = false;
+        } else {
+            hiScoreText.text = "HI-SCORE\n" + hiScore.ToString("0000");
+        }
     }
 
     public void UpdateScore(int enemyValue) {

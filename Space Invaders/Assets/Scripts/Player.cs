@@ -13,9 +13,13 @@ public class Player : MonoBehaviour
     public GameObject bullet;
     public Transform parent;
 
+    public Animator playerAnimator;
+
     // Update is called once per frame
     void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
+            playerAnimator.SetTrigger("Shoot");
+
             GameObject bull = Instantiate(bullet, gameObject.transform.position + new Vector3(0f, 0.5f, 0f), Quaternion.identity, parent);
             bull.GetComponent<Bullet>().ShootBullet(1);
         }
@@ -23,7 +27,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Translate(Input.GetAxis("Horizontal") * Time.deltaTime * speed, 0, 0);
+        transform.Translate(Input.GetAxis("Horizontal") * Time.fixedDeltaTime * speed, 0, 0);
 
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -5.9f, 5.9f), -4, 0);
     }

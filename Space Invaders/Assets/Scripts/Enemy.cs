@@ -11,13 +11,18 @@ public class Enemy : MonoBehaviour
     int enemyValue = 0;
 
     GameObject em;
-    GameObject m;
+    GameObject gm;
+    GameObject sm;
+
+    bool endEnemy = false;
+    float endTimer = 1;
 
     // Start is called before the first frame update
     void Start()
     {
         em = GameObject.Find("Enemies");
-        m = GameObject.Find("Manager");
+        gm = GameObject.Find("GameManager");
+        sm = GameObject.Find("ScoreManager");
 
         if (gameObject.name == "Enemy1(Clone)") {
             enemyValue = 30;
@@ -36,17 +41,30 @@ public class Enemy : MonoBehaviour
         if (gameObject.name == "Enemy4(Clone)") {
             transform.Translate(2 * Time.deltaTime, 0, 0);
         }
+
+        if (endEnemy == true) {
+            if (endTimer < 0) {
+                Destroy(gameObject);
+            } else {
+                endTimer -= Time.deltaTime;
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.tag == "Bullet") {
             em.GetComponent<EnemyManager>().UpdateEnemyCount();
-            m.GetComponent<ScoreManager>().UpdateScore(enemyValue);
+            sm.GetComponent<ScoreManager>().UpdateScore(enemyValue);
         } else if (collision.gameObject.name == "Player") {
-            collision.gameObject.SetActive(false);
-            m.GetComponent<GameManager>().ResetGame();
+            gm.GetComponent<GameManager>().EndGame();
         } else if (collision.gameObject.tag != "Enemy") {
             Destroy(collision.gameObject);
         }
+    }
+
+    public void DestroyEnemy() {
+        GetComponent<Animator>().SetTrigger("Explode");
+
+        endEnemy = true;
     }
 }

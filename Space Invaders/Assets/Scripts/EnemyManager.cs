@@ -14,6 +14,7 @@ public class EnemyManager : MonoBehaviour
     public GameObject enemy4;
 
     public GameObject[] enArr;
+    GameObject en4;
 
     float moveCountdown;
     int moveDirection;
@@ -27,12 +28,14 @@ public class EnemyManager : MonoBehaviour
 
     public int enemyCount;
 
-    public GameObject gm;
+    GameObject gm;
 
     // Start is called before the first frame update
     void Start()
     {
         SpawnEnemies();
+
+        gm = GameObject.Find("GameManager");
     }
 
     public void SpawnEnemies() {
@@ -101,14 +104,25 @@ public class EnemyManager : MonoBehaviour
         }
 
         if (shootCountdown < 0) {
-            GameObject bull = Instantiate(enemyBullet, enArr[SelectRandomEnemy()].transform.position, Quaternion.identity, bullets);
+            int enem = SelectRandomEnemy();
+
+            GameObject bull;
+            if (enem == 50) {
+                en4.GetComponent<Animator>().SetTrigger("Shoot");
+
+                bull = Instantiate(enemyBullet, en4.transform.position, Quaternion.identity, bullets);
+            } else {
+                enArr[enem].GetComponent<Animator>().SetTrigger("Shoot");
+
+                bull = Instantiate(enemyBullet, enArr[enem].transform.position, Quaternion.identity, bullets);
+            }
             bull.GetComponent<Bullet>().ShootBullet(-1);
 
             shootCountdown = 2f;
         }
 
         if (enemy4Countdown < 0) {
-            GameObject en4 = Instantiate(enemy4, new Vector3(-5, 3, 0), Quaternion.identity);
+            en4 = Instantiate(enemy4, new Vector3(-5, 3, 0), Quaternion.identity);
             Destroy(en4, 10);
 
             enemy4Countdown = 8f;
@@ -116,9 +130,9 @@ public class EnemyManager : MonoBehaviour
     }
 
     int SelectRandomEnemy() {
-        int ranEn = Random.Range(0, 50);
+        int ranEn = Random.Range(0, 51);
 
-        if (enArr[ranEn] == null) {
+        if ((ranEn < 50 && enArr[ranEn] == null) || (ranEn == 50 && en4 == null)) {
             return SelectRandomEnemy();
         } else {
             return ranEn;
