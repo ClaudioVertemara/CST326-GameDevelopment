@@ -12,7 +12,7 @@ public class CoinManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        coinAmount = 1000;
+        coinAmount = 100;
         coinText.text = "Coins: " + coinAmount.ToString("000000");
     }
 
@@ -24,5 +24,16 @@ public class CoinManager : MonoBehaviour
         }
 
         coinText.text = "Coins: " + coinAmount.ToString("000000");
+    }
+
+    public bool BuyWeapon() {
+        if (coinAmount >= 50) {
+            coinAmount -= 50;
+            coinText.text = "Coins: " + coinAmount.ToString("000000");
+
+            return true;
+        }
+
+        return false;
     }
 }

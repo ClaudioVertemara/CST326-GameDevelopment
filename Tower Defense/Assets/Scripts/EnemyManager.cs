@@ -31,8 +31,8 @@ public class EnemyManager : MonoBehaviour
 {
     public GameObject EnemyA;
     public GameObject EnemyB;
-    public float timeToWaitA = 1;
-    public float timeToWaitB = 1.5f;
+    public float timeToWaitA;
+    public float timeToWaitB;
     public Wave currentWave;
 
     public WaypointManager waypointManager;

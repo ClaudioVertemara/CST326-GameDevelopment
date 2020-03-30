@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class Enemy : MonoBehaviour
     public float speed = 1;
 
     int health;
+    int orgHealth;
     CoinManager coinManager;
+
+    public GameObject healthBar;
 
     public void Initialize(WaypointManager waypointManager, CoinManager coinManager) {
         this.waypointManager = waypointManager;
@@ -25,6 +29,7 @@ public class Enemy : MonoBehaviour
         } else if (gameObject.name.Contains("EnemyB")) {
             health = 10;
         }
+        orgHealth = health;
     }
 
     void Update() {
@@ -43,12 +48,13 @@ public class Enemy : MonoBehaviour
 
     public void ReduceHealth() {
         health -= 3;
+        healthBar.transform.localScale = new Vector3((float)health/orgHealth, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
 
         if (health <= 0) {
             coinManager.GetComponent<CoinManager>().IncreaseCoins(gameObject.name);
             Destroy(gameObject);
         }
 
-        Debug.Log(gameObject.name + " Health: " + health);
+        //Debug.Log(gameObject.name + " Health: " + health);
     }
 }
