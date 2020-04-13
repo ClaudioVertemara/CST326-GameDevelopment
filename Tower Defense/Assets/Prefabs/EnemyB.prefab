@@ -231,7 +231,6 @@ GameObject:
   - component: {fileID: 8262523722027165784}
   - component: {fileID: 8262523722027165791}
   - component: {fileID: 8262523722027165790}
-  - component: {fileID: 8262523722027165785}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -300,19 +299,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8262523722027165785
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8262523722027165787}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8262523722266808650
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,9 +309,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8262523722266808648}
   - component: {fileID: 8262523722266808651}
+  - component: {fileID: 8547060259594950810}
+  - component: {fileID: 4334590017241423860}
   m_Layer: 0
   m_Name: EnemyB
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -362,3 +350,32 @@ MonoBehaviour:
   waypointManager: {fileID: 0}
   speed: 3
   healthBar: {fileID: 4607373475509427247}
+--- !u!65 &8547060259594950810
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8262523722266808650}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &4334590017241423860
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8262523722266808650}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

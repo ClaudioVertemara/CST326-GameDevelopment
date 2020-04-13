@@ -2,22 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class Bullet : MonoBehaviour
 {
-  public float speed = 5;
-  public float lifeTime = 5;
-  private Rigidbody rb;
+    float speed = 0.1f;
 
-  void Awake()
-  {
-    rb = GetComponent<Rigidbody>();
-  }
-  void FixedUpdate()
-  {
-    rb.velocity = Vector3.forward * speed;
-    lifeTime -= Time.fixedDeltaTime;
-    Debug.Log(lifeTime);
-    if (lifeTime < 0) Destroy(gameObject);
-  }
+    private Rigidbody rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+
+        Destroy(gameObject, 1);
+    }
+    void FixedUpdate()
+    {
+        rb.velocity = Vector3.forward * speed;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Enemy") {
+            other.gameObject.GetComponent<Enemy>().ReduceHealth();
+
+            Destroy(gameObject);
+        }
+    }
 }

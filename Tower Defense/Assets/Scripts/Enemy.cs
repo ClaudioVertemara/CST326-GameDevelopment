@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour
-{
+public class Enemy : MonoBehaviour {
     public Waypoint currentDestination;
     public WaypointManager waypointManager;
     private int currentIndexWaypoint = 0;
@@ -25,9 +24,9 @@ public class Enemy : MonoBehaviour
         GetNextWaypoint();
 
         if (gameObject.name.Contains("EnemyA")) {
-            health = 20;
+            health = 50;
         } else if (gameObject.name.Contains("EnemyB")) {
-            health = 10;
+            health = 30;
         }
         orgHealth = health;
     }
@@ -47,12 +46,17 @@ public class Enemy : MonoBehaviour
     }
 
     public void ReduceHealth() {
-        health -= 3;
-        healthBar.transform.localScale = new Vector3((float)health/orgHealth, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
+        if (health > 0) {
+            health--;
+            healthBar.transform.localScale = new Vector3((float)health / orgHealth, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
+            
+            if (health <= 0) {
+                coinManager.IncreaseCoins(gameObject.name);
+                transform.parent.gameObject.GetComponent<EnemyManager>().EnemyDied();
+                transform.parent.gameObject.GetComponent<AudioSource>().Play();
 
-        if (health <= 0) {
-            coinManager.GetComponent<CoinManager>().IncreaseCoins(gameObject.name);
-            Destroy(gameObject);
+                Destroy(gameObject);
+            }
         }
 
         //Debug.Log(gameObject.name + " Health: " + health);

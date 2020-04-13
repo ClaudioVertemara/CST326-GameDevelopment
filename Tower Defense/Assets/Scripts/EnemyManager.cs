@@ -35,11 +35,19 @@ public class EnemyManager : MonoBehaviour
     public float timeToWaitB;
     public Wave currentWave;
 
+    public GameManager gameManager;
     public WaypointManager waypointManager;
     public CoinManager coinManager;
 
+    public int numEnemies;
+
     void Start()
     {
+        //StartEnemies();
+    }
+
+    public void StartEnemies() {
+        numEnemies = 0;
 
         Group groupA = new Group(EnemyA, timeToWaitA, 5);
         Group groupB = new Group(EnemyB, timeToWaitB, 3);
@@ -49,7 +57,7 @@ public class EnemyManager : MonoBehaviour
         SpawnWave(currentWave);
     }
 
-    private void SpawnWave(Wave newWave)
+    public void SpawnWave(Wave newWave)
     {
         foreach (Group group in newWave.enemyGroups)
         {
@@ -59,12 +67,28 @@ public class EnemyManager : MonoBehaviour
 
     private IEnumerator SpawnGroup(Group @group)
     {
+        numEnemies += group.numberOfEnemies;
+
         while (@group.numberOfEnemies > 0)
         {
             yield return new WaitForSeconds(@group.spawnTime);
             GameObject enemy = Instantiate(@group.enemy, transform);
             enemy.GetComponent<Enemy>().Initialize(waypointManager, coinManager);
             @group.numberOfEnemies--;
+        }
+    }
+
+    public void EnemyDied() {
+        numEnemies--;
+
+        if (numEnemies <= 0) {
+            gameManager.EndGame();
+        }
+    }
+
+    public void ResetEnemies() {
+        for (int i = 0; i < transform.childCount; i++) {
+            Destroy(transform.GetChild(i).gameObject);
         }
     }
 }

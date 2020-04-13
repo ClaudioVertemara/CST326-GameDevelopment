@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8628644526776210031}
   - component: {fileID: 6011054041853490053}
   - component: {fileID: 1603322151054308985}
+  - component: {fileID: 6844842490796523333}
   m_Layer: 0
   m_Name: SmallBullet
   m_TagString: Untagged
@@ -124,3 +125,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &6844842490796523333
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908343121311076100}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

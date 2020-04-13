@@ -19,7 +19,7 @@ public class OnMouseClick : MonoBehaviour
                 BoxCollider bColl = hit.collider as BoxCollider;
 
                 if (bColl != null) {
-                    if (bColl.gameObject.name == "Cube") {
+                    if (bColl.gameObject.tag == "Enemy") {
                         bColl.gameObject.GetComponentInParent<Enemy>().ReduceHealth();
                     }
 
