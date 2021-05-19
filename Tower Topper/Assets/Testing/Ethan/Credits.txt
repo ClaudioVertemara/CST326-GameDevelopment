@@ -1,0 +1,24 @@
+Ethan Herndon
+	Spawn blocks
+	Block types
+	Music shuffle script
+	Export project/code cleanup
+
+Claudio Vertemara
+	Detecting Tower Height & Scoring System
+	Detecting Falling Tower
+	Gui
+	Menu
+
+Nicholas Cerda 
+	Player block movement
+	Turning on/off player controls
+	Camera Movement
+	Changing Background
+
+
+PredaHunter
+	App Icon
+
+Ken Miller
+	Team Logo
